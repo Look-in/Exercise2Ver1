@@ -1,5 +1,5 @@
 public enum SentenceBlockType {
-    TEXT(""),
+    TEXT("[*]"),
     PARAGRAPH("\n"),
     SENTENCE("[.!?]\\s+"),
     WORD("[ <>!#$%&*_+-=,/?;:]"),
