@@ -4,7 +4,7 @@ public enum SentenceBlockType {
     //separators
     TEXT("[*]"),
     PARAGRAPH("(?<=[\n])"),
-    SENTENCE("(?<=[.!?])(?<=(\\s+|\n))"),
+    SENTENCE("(?<=[.!?])(?=\\s)"),
     WORD("[ <>!#$%&*_+=,/?;:]"),
     //String matches
     EMAIL("(\\w+)@(\\w+\\.)(\\w+)(\\.\\w+)*"),
@@ -15,7 +15,7 @@ public enum SentenceBlockType {
 
     private String regex;
 
-    private SentenceBlockType(String regex) {
+    SentenceBlockType(String regex) {
         this.regex = regex;
     }
 

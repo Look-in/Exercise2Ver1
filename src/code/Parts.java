@@ -1,5 +1,11 @@
 package code;
 
+/**
+ * @author Serg Shankunas <shserg2012@gmail.com>
+ * @version 1.0
+ * Consists of lists both parts of the text and parts of the sentence.
+ */
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

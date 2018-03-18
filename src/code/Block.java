@@ -1,6 +1,6 @@
 /**
  * @author Serg Shankunas <shserg2012@gmail.com>
- * @version 1.0                 (current version number of program)
+ * @version 1.0
  * Integer wordLengthForReplacing - the length of words for replacing
  * Zero or a negative number - without replacement.
  * Also can use regex ->
@@ -55,7 +55,7 @@ public class Block {
     }
 
     public void collect(StringBuilder splitedText, SentenceBlockType endSentenceBlockType, int wordLengthForReplacing) {
-        if (sentenceBlockType != endSentenceBlockType && !blocks.isEmpty())
+        if (sentenceBlockType != endSentenceBlockType & !blocks.isEmpty())
             blocks.forEach(e -> e.collect(splitedText, endSentenceBlockType, wordLengthForReplacing));
         else
             /*Resolving the exercise N16 - replace each word length more than X with =====Java=====
