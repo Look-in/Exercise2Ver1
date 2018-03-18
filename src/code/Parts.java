@@ -17,4 +17,5 @@ public interface Parts {
             SentenceBlockType.NUMERIC,
             SentenceBlockType.MARKER,
             SentenceBlockType.PHONE));
+
 }

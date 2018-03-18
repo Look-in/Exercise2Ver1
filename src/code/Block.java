@@ -17,8 +17,6 @@ import java.util.StringTokenizer;
 
 public class Block {
 
-    private int wordLengthForReplacing;
-
     private SentenceBlockType sentenceBlockType;
 
     private List<Block> blocks = new ArrayList<>();
@@ -30,14 +28,10 @@ public class Block {
         this.text = text;
     }
 
-    public void setWordLengthForReplacing(int wordLengthForReplacing) {
-        this.wordLengthForReplacing = wordLengthForReplacing;
-    }
-
     public void split(SentenceBlockType beginSentenceBlockType, SentenceBlockType endSentenceBlockType) {
         int partNumber = Parts.textParts.indexOf(beginSentenceBlockType);
         splitBlock(Parts.textParts.get(partNumber++));
-        if ((partNumber <= Parts.textParts.indexOf(endSentenceBlockType)))
+        if (partNumber <= Parts.textParts.indexOf(endSentenceBlockType))
             for (Block block : blocks) block.split(Parts.textParts.get(partNumber), endSentenceBlockType);
     }
 
@@ -60,16 +54,13 @@ public class Block {
                 blocks.add(new Block(sentenceBlockType, regex));
     }
 
-    public void collect(StringBuilder splitedText, SentenceBlockType sentenceBlockType) {
-        if (this.sentenceBlockType != sentenceBlockType && !blocks.isEmpty())
-            blocks.forEach(e -> e.collect(splitedText, sentenceBlockType));
+    public void collect(StringBuilder splitedText, SentenceBlockType endSentenceBlockType, int wordLengthForReplacing) {
+        if (sentenceBlockType != endSentenceBlockType && !blocks.isEmpty())
+            blocks.forEach(e -> e.collect(splitedText, endSentenceBlockType, wordLengthForReplacing));
         else
-            //Resolving the exercise N16 - replace each word length more than X with =====Java=====
-            //splitedText.append((text.length() == wordLengthForReplacing) ? "=====Java=====" : this.sentenceBlockType + "=" + text);
-            splitedText.append((text.length() == wordLengthForReplacing) ? "=====Java=====" : text);
-            /*//without replacing
-            splitedText.append(text);*/
+            /*Resolving the exercise N16 - replace each word length more than X with =====Java=====
+              without replacing -> splitedText.append(text);*/
+            //splitedText.append(text.length() == wordLengthForReplacing ? "=====Java=====" : sentenceBlockType + "=" + text);
+            splitedText.append(text.length() == wordLengthForReplacing ? "=====Java=====" : text);
     }
-
-
 }
