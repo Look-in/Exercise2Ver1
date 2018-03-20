@@ -12,14 +12,11 @@
 package code;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.StringTokenizer;
 
-public class Block {
+public class Block extends ArrayList<Block>{
 
     private TextBlockType textBlockType;
-
-    private List<Block> blocks = new ArrayList<>();
 
     private String text;
 
@@ -31,7 +28,7 @@ public class Block {
     public void split(TextBlockType beginTextBlockType, TextBlockType endTextBlockType) {
         splitBlock(beginTextBlockType);
         if (beginTextBlockType != endTextBlockType & Parts.textParts.indexOf(beginTextBlockType) < Parts.textParts.size() - 1)
-            blocks.forEach(e -> e.split(Parts.textParts.get(Parts.textParts.indexOf(beginTextBlockType) + 1), endTextBlockType));
+            this.forEach(e -> e.split(Parts.textParts.get(Parts.textParts.indexOf(beginTextBlockType) + 1), endTextBlockType));
     }
 
     private void splitBlock(TextBlockType textBlockType) {
@@ -42,20 +39,20 @@ public class Block {
                 token = tokenizer.nextToken();
                 for (TextBlockType kind : Parts.sentenceParts)
                     if (token.matches(kind.getRegex())) {
-                        blocks.add(new Block(kind, token));
+                        this.add(new Block(kind, token));
                         token = null;
                         break;
                     }
-                if (token != null) blocks.add(new Block(textBlockType, token));
+                if (token != null) this.add(new Block(textBlockType, token));
             }
         } else
             for (String regex : text.split(textBlockType.getRegex()))
-                blocks.add(new Block(textBlockType, regex));
+                this.add(new Block(textBlockType, regex));
     }
 
     public void collect(StringBuilder splitedText, TextBlockType endSentenceBlockType, int wordLengthForReplacing) {
-        if (textBlockType != endSentenceBlockType & !blocks.isEmpty())
-            blocks.forEach(e -> e.collect(splitedText, endSentenceBlockType, wordLengthForReplacing));
+        if (textBlockType != endSentenceBlockType & !this.isEmpty())
+            this.forEach(e -> e.collect(splitedText, endSentenceBlockType, wordLengthForReplacing));
         else
             /*Resolving the exercise N16 - replace each word length more than X with =====Java=====
               without replacing -> splitedText.append(text);*/
