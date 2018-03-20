@@ -4,7 +4,7 @@
  * Integer wordLengthForReplacing - the length of words for replacing
  * Zero or a negative number - without replacement.
  * Also can use regex ->
- * sentence.replaceAll("\\b[A-Za-zÀ-ßà-ÿ0-9]{"+modifyLength+"}\\b", toModify);
+ * sentence.replaceAll("\\b[A-Za-zï¿½-ï¿½ï¿½-ï¿½0-9]{"+modifyLength+"}\\b", toModify);
  * Collect - recursive method for reading text from the childblocks
  * Split - recursive method for placing text to the childblocks
  */
@@ -17,50 +17,49 @@ import java.util.StringTokenizer;
 
 public class Block {
 
-    private SentenceBlockType sentenceBlockType;
+    private TextBlockType textBlockType;
 
     private List<Block> blocks = new ArrayList<>();
 
     private String text;
 
-    public Block(SentenceBlockType sentenceBlockType, String text) {
-        this.sentenceBlockType = sentenceBlockType;
+    public Block(TextBlockType textBlockType, String text) {
+        this.textBlockType = textBlockType;
         this.text = text;
     }
 
-    public void split(SentenceBlockType beginSentenceBlockType, SentenceBlockType endSentenceBlockType) {
-        int partNumber = Parts.textParts.indexOf(beginSentenceBlockType);
-        splitBlock(Parts.textParts.get(partNumber++));
-        if (partNumber <= Parts.textParts.indexOf(endSentenceBlockType))
-            for (Block block : blocks) block.split(Parts.textParts.get(partNumber), endSentenceBlockType);
+    public void split(TextBlockType beginTextBlockType, TextBlockType endTextBlockType) {
+        splitBlock(beginTextBlockType);
+        if (beginTextBlockType != endTextBlockType & Parts.textParts.indexOf(beginTextBlockType) < Parts.textParts.size() - 1)
+            blocks.forEach(e -> e.split(Parts.textParts.get(Parts.textParts.indexOf(beginTextBlockType) + 1), endTextBlockType));
     }
 
-    private void splitBlock(SentenceBlockType sentenceBlockType) {
-        if (sentenceBlockType == SentenceBlockType.WORD) {
-            StringTokenizer tokenizer = new StringTokenizer(text, sentenceBlockType.getRegex(), true);
+    private void splitBlock(TextBlockType textBlockType) {
+        if (textBlockType == textBlockType.WORD) {
+            StringTokenizer tokenizer = new StringTokenizer(text, textBlockType.getRegex(), true);
             String token;
             while (tokenizer.hasMoreTokens()) {
                 token = tokenizer.nextToken();
-                for (SentenceBlockType kind : Parts.sentenceParts)
+                for (TextBlockType kind : Parts.sentenceParts)
                     if (token.matches(kind.getRegex())) {
                         blocks.add(new Block(kind, token));
                         token = null;
                         break;
                     }
-                if (token != null) blocks.add(new Block(sentenceBlockType, token));
+                if (token != null) blocks.add(new Block(textBlockType, token));
             }
         } else
-            for (String regex : text.split(sentenceBlockType.getRegex()))
-                blocks.add(new Block(sentenceBlockType, regex));
+            for (String regex : text.split(textBlockType.getRegex()))
+                blocks.add(new Block(textBlockType, regex));
     }
 
-    public void collect(StringBuilder splitedText, SentenceBlockType endSentenceBlockType, int wordLengthForReplacing) {
-        if (sentenceBlockType != endSentenceBlockType & !blocks.isEmpty())
+    public void collect(StringBuilder splitedText, TextBlockType endSentenceBlockType, int wordLengthForReplacing) {
+        if (textBlockType != endSentenceBlockType & !blocks.isEmpty())
             blocks.forEach(e -> e.collect(splitedText, endSentenceBlockType, wordLengthForReplacing));
         else
             /*Resolving the exercise N16 - replace each word length more than X with =====Java=====
               without replacing -> splitedText.append(text);*/
-            //splitedText.append(text.length() == wordLengthForReplacing ? "=====Java=====" : sentenceBlockType + "=" + text);
-            splitedText.append(text.length() == wordLengthForReplacing ? "=====Java=====" : text);
+            splitedText.append(text.length() == wordLengthForReplacing ? "=====Java=====" : textBlockType + "=" + text+"|");
+            //splitedText.append(text.length() == wordLengthForReplacing ? "=====Java=====" : text);
     }
 }

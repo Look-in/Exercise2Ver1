@@ -7,10 +7,10 @@ public class Main {
         //Reading text from file
         String textFile = FileToStringReader.readStringFromFile("text.txt");
         //Creating new parent object with type Text
-        Block textBlock = new Block(SentenceBlockType.TEXT, textFile);
-        //õõõ-sentenceBlockType - depth of textParts for recursion
-        SentenceBlockType beginSentenceBlockType=SentenceBlockType.PARAGRAPH;
-        SentenceBlockType endSentenceBlockType=SentenceBlockType.WORD;
+        Block textBlock = new Block(TextBlockType.TEXT, textFile);
+        //XXX-sentenceBlockType - depth of textParts for recursion
+        TextBlockType beginSentenceBlockType= TextBlockType.PARAGRAPH;
+        TextBlockType endSentenceBlockType= TextBlockType.WORD;
         textBlock.split(beginSentenceBlockType,endSentenceBlockType);
         StringBuilder modified=new StringBuilder();
         //Reading text from Blocks

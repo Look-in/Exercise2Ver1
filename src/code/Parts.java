@@ -5,23 +5,13 @@ package code;
  * @version 1.0
  * Consists of lists both parts of the text and parts of the sentence.
  */
-
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.List;
 
 public interface Parts {
 
-    List<SentenceBlockType> textParts = new ArrayList<>(Arrays.asList(
-            SentenceBlockType.PARAGRAPH,
-            SentenceBlockType.SENTENCE,
-            SentenceBlockType.WORD));
+    List<TextBlockType> textParts = new ArrayList<>(EnumSet.range(TextBlockType.PARAGRAPH, TextBlockType.WORD));
 
-    List<SentenceBlockType> sentenceParts = new ArrayList<>(Arrays.asList(
-            SentenceBlockType.WHITESPACE,
-            SentenceBlockType.EMAIL,
-            SentenceBlockType.NUMERIC,
-            SentenceBlockType.MARKER,
-            SentenceBlockType.PHONE));
-
+    List<TextBlockType> sentenceParts = new ArrayList<>(EnumSet.range(TextBlockType.EMAIL, TextBlockType.MARKER));
 }
