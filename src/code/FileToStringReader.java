@@ -1,15 +1,14 @@
-/**
- * @author Serg Shankunas <shserg2012@gmail.com>
- * @version 1.0
- * Reading the file as a whole string.
- */
-
 package code;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
 
+/**
+ * @author Serg Shankunas <shserg2012@gmail.com>
+ * @version 1.0
+ * Reading the file as a whole string.
+ */
 public class FileToStringReader {
 
     public static String readStringFromFile(String fileName) {

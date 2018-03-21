@@ -1,3 +1,9 @@
+package code;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
+
 /**
  * @author Serg Shankunas <shserg2012@gmail.com>
  * @version 1.0
@@ -8,13 +14,6 @@
  * Collect - recursive method for reading text from the childblocks
  * Split - recursive method for placing text to the childblocks
  */
-
-package code;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
-
 public class Block {
 
     List<Block> blocks = new ArrayList<>();
@@ -60,6 +59,6 @@ public class Block {
             /*Resolving the exercise N16 - replace each word length more than X with =====Java=====
               without replacing -> splitedText.append(text);*/
             splitedText.append(text.length() == wordLengthForReplacing ? "=====Java=====" : textBlockType + "=" + text + "|");
-           //splitedText.append(text.length() == wordLengthForReplacing ? "=====Java=====" : text);
+           /*splitedText.append(text.length() == wordLengthForReplacing ? "=====Java=====" : text);*/
     }
 }

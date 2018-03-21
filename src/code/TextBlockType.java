@@ -1,19 +1,18 @@
-/*
- * Copyright (c) 2018.
+package code;
+
+/**
+ *  Copyright (c) 2018.
  * @author Serg Shankunas <shserg2012@gmail.com>
  * @version 1.0
  * Enumeration with regular expressions (regex)
  */
-
-package code;
-
 public enum TextBlockType {
-    //separators
+    /*separators*/
     TEXT("[*]"),
     PARAGRAPH("(?<=[\n])"),
     SENTENCE("(?<=[.!?])(?=\\s)"),
     WORD("[ <>!#$%&*_+=,/?;:]"),
-    //String matches
+    /*String matches*/
     EMAIL("(\\w+)@(\\w+\\.)(\\w+)(\\.\\w+)*"),
     PHONE("(8?)\\(\\d{3}\\)\\d{3}-?\\d{2}-?\\d{2}"),
     WHITESPACE("\\s"),
