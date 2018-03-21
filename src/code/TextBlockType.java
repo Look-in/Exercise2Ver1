@@ -1,6 +1,8 @@
 /*
  * Copyright (c) 2018.
- * shankunassv
+ * @author Serg Shankunas <shserg2012@gmail.com>
+ * @version 1.0
+ * Enumeration with regular expressions (regex)
  */
 
 package code;

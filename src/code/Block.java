@@ -4,7 +4,7 @@
  * Integer wordLengthForReplacing - the length of words for replacing
  * Zero or a negative number - without replacement.
  * Also can use regex ->
- * sentence.replaceAll("\\b[A-Za-z�-��-�0-9]{"+modifyLength+"}\\b", toModify);
+ * sentence.replaceAll("\\b[A-Za-zА-Яа-я0-9]{"+modifyLength+"}\\b", toModify);
  * Collect - recursive method for reading text from the childblocks
  * Split - recursive method for placing text to the childblocks
  */
@@ -12,9 +12,12 @@
 package code;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
-public class Block extends ArrayList<Block>{
+public class Block {
+
+    List<Block> blocks = new ArrayList<>();
 
     private TextBlockType textBlockType;
 
@@ -28,7 +31,7 @@ public class Block extends ArrayList<Block>{
     public void split(TextBlockType beginTextBlockType, TextBlockType endTextBlockType) {
         splitBlock(beginTextBlockType);
         if (beginTextBlockType != endTextBlockType & Parts.textParts.indexOf(beginTextBlockType) < Parts.textParts.size() - 1)
-            this.forEach(e -> e.split(Parts.textParts.get(Parts.textParts.indexOf(beginTextBlockType) + 1), endTextBlockType));
+            blocks.forEach(e -> e.split(Parts.textParts.get(Parts.textParts.indexOf(beginTextBlockType) + 1), endTextBlockType));
     }
 
     private void splitBlock(TextBlockType textBlockType) {
@@ -39,24 +42,24 @@ public class Block extends ArrayList<Block>{
                 token = tokenizer.nextToken();
                 for (TextBlockType kind : Parts.sentenceParts)
                     if (token.matches(kind.getRegex())) {
-                        this.add(new Block(kind, token));
+                        blocks.add(new Block(kind, token));
                         token = null;
                         break;
                     }
-                if (token != null) this.add(new Block(textBlockType, token));
+                if (token != null) blocks.add(new Block(textBlockType, token));
             }
         } else
             for (String regex : text.split(textBlockType.getRegex()))
-                this.add(new Block(textBlockType, regex));
+                blocks.add(new Block(textBlockType, regex));
     }
 
-    public void collect(StringBuilder splitedText, TextBlockType endSentenceBlockType, int wordLengthForReplacing) {
-        if (textBlockType != endSentenceBlockType & !this.isEmpty())
-            this.forEach(e -> e.collect(splitedText, endSentenceBlockType, wordLengthForReplacing));
+    public void collect(StringBuilder splitedText, TextBlockType endTextBlockType, int wordLengthForReplacing) {
+        if (textBlockType != endTextBlockType & !blocks.isEmpty())
+            blocks.forEach(e -> e.collect(splitedText, endTextBlockType, wordLengthForReplacing));
         else
             /*Resolving the exercise N16 - replace each word length more than X with =====Java=====
               without replacing -> splitedText.append(text);*/
-            splitedText.append(text.length() == wordLengthForReplacing ? "=====Java=====" : textBlockType + "=" + text+"|");
-            //splitedText.append(text.length() == wordLengthForReplacing ? "=====Java=====" : text);
+            splitedText.append(text.length() == wordLengthForReplacing ? "=====Java=====" : textBlockType + "=" + text + "|");
+           //splitedText.append(text.length() == wordLengthForReplacing ? "=====Java=====" : text);
     }
 }
