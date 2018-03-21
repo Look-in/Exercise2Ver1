@@ -1,10 +1,10 @@
 package code;
 
 /**
- *  Copyright (c) 2018.
+ * Enumeration with regular expressions (regex)
+ * Copyright (c) 2018.
  * @author Serg Shankunas <shserg2012@gmail.com>
  * @version 1.0
- * Enumeration with regular expressions (regex)
  */
 public enum TextBlockType {
     /*separators*/

@@ -5,9 +5,9 @@ import java.io.FileReader;
 import java.util.Scanner;
 
 /**
+ * Reading the file as a whole string.
  * @author Serg Shankunas <shserg2012@gmail.com>
  * @version 1.0
- * Reading the file as a whole string.
  */
 public class FileToStringReader {
 
