@@ -10,7 +10,7 @@ import java.util.StringTokenizer;
  * Also can use regex ->
  * sentence.replaceAll("\\b[A-Za-zА-Яа-я0-9]{"+modifyLength+"}\\b", toModify);
  * Collect - recursive method for reading text from the childblocks
- * Split - recursive method for placing text to the childblocks
+ * Split - recursive method for placing text into the childblocks
  * @author Serg Shankunas <shserg2012@gmail.com>
  * @version 1.0
  */
