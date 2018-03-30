@@ -29,7 +29,7 @@ public class Block {
 
     public void split(TextBlockType beginTextBlockType, TextBlockType endTextBlockType) {
         splitBlock(beginTextBlockType);
-        if ((beginTextBlockType != endTextBlockType) &
+        if ((beginTextBlockType != endTextBlockType) &&
                 (Parts.textParts.indexOf(beginTextBlockType) < Parts.textParts.size() - 1)) {
             blocks.forEach(e -> e.split(Parts.textParts
                     .get(Parts.textParts.indexOf(beginTextBlockType) + 1), endTextBlockType));
@@ -63,7 +63,7 @@ public class Block {
     public void collect(StringBuilder splitedText,
                         TextBlockType endTextBlockType,
                         int wordLengthForReplacing) {
-        if ((textBlockType != endTextBlockType) & !blocks.isEmpty()) {
+        if ((textBlockType != endTextBlockType) && !blocks.isEmpty()) {
             blocks.forEach(e -> e.collect(splitedText,
                     endTextBlockType,
                     wordLengthForReplacing));
